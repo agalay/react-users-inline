@@ -1,10 +1,10 @@
 const initialState = {
-    items: [],
+    items: null,
   };
 
   export default (state = initialState, { type, payload }) => {
     switch (type) {
-      case 'USERS:SET_ITEMS':
+      case 'USER:SET_DATA':
         return {
           ...state,
           items: payload,
