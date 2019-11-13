@@ -1,14 +1,13 @@
-import React from 'react';
+import React from "react";
+import { Section, Header } from "./components";
+import { CardList } from "./containers";
 
-import { Section, Header} from './components';
-import { CardList } from './containers'
-
-import './styles/index.scss'
+import "./styles/index.scss";
 
 function App() {
   return (
     <div className="App">
-      <Header/>
+      <Header />
       <Section>
         <CardList />
       </Section>

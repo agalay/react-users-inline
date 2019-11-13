@@ -1,50 +1,57 @@
-import React from 'react';
+import React from "react";
 import {
-    DocumentCard,
-    DocumentCardActivity,
-    DocumentCardPreview,
-    DocumentCardTitle,
-  } from 'office-ui-fabric-react/lib/DocumentCard';
-  import { ImageFit } from 'office-ui-fabric-react/lib/Image';
-//   import { TestImages } from '@uifabric/example-data';
+  DocumentCard,
+  DocumentCardPreview,
+  DocumentCardTitle
+} from "office-ui-fabric-react/lib/DocumentCard";
+import { Text } from "office-ui-fabric-react/lib/Text";
+import { FontIcon } from "office-ui-fabric-react/lib/Icon";
+import { mergeStyles } from "office-ui-fabric-react/lib/Styling";
+import { initializeIcons } from "office-ui-fabric-react/lib/Icons";
+import { Modal } from "../";
 
-const Card = ({name, avatar, phone, post, email, cabinet}) => {
+import "./Card.scss";
+
+initializeIcons();
+
+const Card = ({ id, name, avatar, phone, post, email, cabinet, onRemove }) => {
   const previewProps = {
     previewImages: [
       {
-        name: name,
-        linkProps: {
-          href: 'http://bing.com',
-          target: '_blank'
-        },
         previewImageSrc: avatar,
-        width: 318,
-        height: 196
+        width: "100%",
+        height: "100%"
       }
     ]
   };
 
-    return ( 
-      <div>
-        <DocumentCard
-          aria-label="Default Document Card with large file name. Created by Annie Lindqvist a few minutes ago."
-          onClickHref="http://bing.com"
-        >
-          <DocumentCardPreview {...previewProps} />
-          <DocumentCardTitle
-            title={name}
-            shouldTruncate={true}
-          />
-          <DocumentCardActivity
-            activity="Created a few minutes ago"
-            people={[{ name: 'Annie Lindqvist' }]}
-          />
-        </DocumentCard>
-      </div>
-     );
-}
- 
+  const iconClass = mergeStyles({
+    fontSize: 13
+  });
+
+  return (
+    <div>
+      <DocumentCard>
+        <DocumentCardPreview {...previewProps} />
+        <DocumentCardTitle title={name} shouldTruncate={true} />
+        <Text variant={"smallPlus"} block>
+          <ul>
+            <li>{post}</li>
+            <li>{email}</li>
+            <li>{phone}</li>
+            <li>{cabinet}</li>
+          </ul>
+        </Text>
+
+        <div className="iconbox">
+          <Modal />
+          <a href="#!" onClick={onRemove.bind(this, id)}>
+            <FontIcon iconName="delete" className={iconClass} />
+          </a>
+        </div>
+      </DocumentCard>
+    </div>
+  );
+};
+
 export default Card;
-
-
- 

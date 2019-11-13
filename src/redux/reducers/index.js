@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
-import users from './users'
+import users from "./user";
+import { reducer as formReducer } from "redux-form";
 
-export default combineReducers({ users });
+export default combineReducers({ users, form: formReducer });

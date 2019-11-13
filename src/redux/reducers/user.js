@@ -9,6 +9,11 @@ const initialState = {
           ...state,
           items: payload,
         };
+      case 'USER:REMOVE_ITEM':
+        return {
+          ...state,
+          items: state.items.filter(item => item.id !== payload),
+        };
       default:
         return state;
     }
