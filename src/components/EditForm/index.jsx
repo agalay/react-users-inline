@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Field, reduxForm } from "redux-form";
 import { DialogFooter } from "office-ui-fabric-react/lib/Dialog";
 import { PrimaryButton } from "office-ui-fabric-react";
 import {
