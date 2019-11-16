@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Field, reduxForm } from "redux-form";
 import { DialogFooter } from "office-ui-fabric-react/lib/Dialog";
 import { PrimaryButton } from "office-ui-fabric-react";
@@ -7,63 +7,79 @@ import {
   MaskedTextField
 } from "office-ui-fabric-react/lib/TextField";
 
-let EditFormRedux = props => {
-  const { handleSubmit } = props;
+const EditForm = props => {
+  const [data, setData] = useState({
+    id: props.id,
+    name: props.name,
+    post: props.post,
+    phone: props.phone,
+    email: props.email,
+    cabinet: props.cabinet
+  });
+
+  const { name, post, phone, email, cabinet } = data;
+  const handleInputChange = e => {
+    const target = e.target;
+    const value = target.value;
+    const name = target.name;
+
+    setData({
+      ...data,
+      [name]: value
+    });
+  };
+
+  const onSubmit = e => {
+    const newData = {
+      ...data
+    };
+    props.editUser(newData);
+    alert("Данные успешно изменены");
+    props.setDialog(true);
+    e.preventDefault();
+  };
   return (
-    <form onSubmit={handleSubmit}>
-      <Field
+    <form onSubmit={onSubmit}>
+      <TextField
         name="name"
-        component={field => (
-          <TextField label="Fullname" {...field.input} required />
-        )}
-        type="text"
+        value={name}
+        label="Fullname"
+        onChange={handleInputChange}
+        required
       />
-      <Field
+      <TextField
         name="post"
-        component={field => (
-          <TextField label="Post" {...field.input} required />
-        )}
-        type="text"
+        value={post}
+        label="Post"
+        onChange={handleInputChange}
+        required
       />
-      <Field
+      <TextField
         name="email"
-        component={field => (
-          <TextField label="Email" type="email" {...field.input} required />
-        )}
+        value={email}
+        label="Email"
         type="email"
+        onChange={handleInputChange}
+        required
       />
-      <Field
+      <MaskedTextField
         name="phone"
-        component={field => (
-          <MaskedTextField
-            label="Phone"
-            mask="(999) 999 - 9999"
-            {...field.input}
-          />
-        )}
-        type="text"
+        value={phone}
+        label="Phone"
+        mask="(999) 999 - 9999"
+        onChange={handleInputChange}
       />
-      <Field
+      <TextField
         name="cabinet"
-        component={field => <TextField label="Standard" {...field.input} />}
-        type="text"
+        value={cabinet}
+        label="Cabinet"
+        onChange={handleInputChange}
       />
       <DialogFooter>
         <PrimaryButton type="submit" text="Save" />
       </DialogFooter>
     </form>
   );
-};
-
-EditFormRedux = reduxForm({
-  form: "edit"
-})(EditFormRedux);
-
-const EditForm = props => {
-  const onSubmit = formData => {
-    console.log(formData);
-  };
-  return <EditFormRedux onSubmit={onSubmit} />;
 };
 
 export default EditForm;

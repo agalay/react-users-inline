@@ -14,7 +14,8 @@ import "./Card.scss";
 
 initializeIcons();
 
-const Card = ({ id, name, avatar, phone, post, email, cabinet, onRemove }) => {
+const Card = props => {
+  const { id, name, avatar, phone, post, email, cabinet, onRemove } = props;
   const previewProps = {
     previewImages: [
       {
@@ -44,7 +45,7 @@ const Card = ({ id, name, avatar, phone, post, email, cabinet, onRemove }) => {
         </Text>
 
         <div className="iconbox">
-          <Modal />
+          <Modal {...props} />
           <a href="#!" onClick={onRemove.bind(this, id)}>
             <FontIcon iconName="delete" className={iconClass} />
           </a>

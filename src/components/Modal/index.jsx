@@ -12,7 +12,7 @@ const iconClass = mergeStyles({
 
 initializeIcons();
 
-const DialogLargeHeaderExample = () => {
+const DialogLargeHeaderExample = props => {
   let [hideDialog, setDialog] = useState(true);
   return (
     <div>
@@ -31,7 +31,7 @@ const DialogLargeHeaderExample = () => {
           styles: { main: { maxWidth: 450 } }
         }}
       >
-        <EditForm setDialog={setDialog} />
+        <EditForm {...props} setDialog={setDialog} />
       </Dialog>
     </div>
   );
